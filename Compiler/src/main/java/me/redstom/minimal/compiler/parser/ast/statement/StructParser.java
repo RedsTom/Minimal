@@ -1,5 +1,7 @@
 package me.redstom.minimal.compiler.parser.ast.statement;
 
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import me.redstom.minimal.compiler.exceptions.LanguageException;
 import me.redstom.minimal.compiler.lexer.TokenType;
 import me.redstom.minimal.compiler.parser.ParsingContext;
@@ -34,28 +36,5 @@ public class StructParser implements IParser<StructParser.Struct> {
             TypeParser.Type type,
             StructFieldParser.StructField[] fields
     ) implements StatementParser.Statement {
-
-        @Override
-        public String toString() {
-            return "Struct{" +
-                   "type=" + type +
-                   ", fields=" + Arrays.toString(fields) +
-                   '}';
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-            Struct struct = (Struct) o;
-            return Objects.equals(type, struct.type) && Arrays.equals(fields, struct.fields);
-        }
-
-        @Override
-        public int hashCode() {
-            int result = Objects.hash(type);
-            result = 31 * result + Arrays.hashCode(fields);
-            return result;
-        }
     }
 }

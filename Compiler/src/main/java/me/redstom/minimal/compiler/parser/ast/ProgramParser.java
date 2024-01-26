@@ -1,5 +1,7 @@
 package me.redstom.minimal.compiler.parser.ast;
 
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import me.redstom.minimal.compiler.exceptions.LanguageException;
 import me.redstom.minimal.compiler.parser.ParsingContext;
 import me.redstom.minimal.compiler.parser.Parses;
@@ -27,25 +29,5 @@ public class ProgramParser implements IParser<ProgramParser.Program> {
     public record Program(
             StatementParser.Statement[] statements
     ) {
-
-        @Override
-        public String toString() {
-            return "Program{" +
-                   "statements=" + Arrays.toString(statements) +
-                   '}';
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-            Program program = (Program) o;
-            return Arrays.equals(statements, program.statements);
-        }
-
-        @Override
-        public int hashCode() {
-            return Arrays.hashCode(statements);
-        }
     }
 }

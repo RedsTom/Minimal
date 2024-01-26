@@ -1,12 +1,13 @@
 package me.redstom.minimal.compiler.parser.ast;
 
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import me.redstom.minimal.compiler.exceptions.LanguageException;
 import me.redstom.minimal.compiler.lexer.TokenType;
 import me.redstom.minimal.compiler.parser.Parses;
 import me.redstom.minimal.compiler.parser.ParsingContext;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Parses(TypeParser.Type.class)
@@ -34,15 +35,5 @@ public class TypeParser implements IParser<TypeParser.Type> {
             String name,
             Type[] generics
     ) {
-
-        @Override
-        public String toString() {
-            return "Type{" +
-                   "name='" + name + '\'' +
-                   ", generics=" + Arrays.toString(generics) +
-                   '}';
-        }
-
-
     }
 }
