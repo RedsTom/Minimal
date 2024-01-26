@@ -1,5 +1,6 @@
 package me.redstom.minimal.compiler.parser;
 
+import me.redstom.minimal.compiler.exceptions.LanguageException;
 import me.redstom.minimal.compiler.exceptions.ParsingException;
 import me.redstom.minimal.compiler.lexer.Token;
 import me.redstom.minimal.compiler.lexer.TokenType;
@@ -30,11 +31,11 @@ public class ParsingContext {
         return new ParsingContext(upcomingTokens, parsingRegistry);
     }
 
-    public <T> T parse(Class<T> type) {
+    public <T> T parse(Class<T> type) throws LanguageException {
         return parsingRegistry.ofType(type).parse(copy());
     }
 
-    public Token eat(TokenType type, String value) {
+    public Token eat(TokenType type, String value) throws LanguageException {
         Token upcoming = upcomingTokens.poll();
 
         if (upcoming == null) {
@@ -47,7 +48,7 @@ public class ParsingContext {
         return upcoming;
     }
 
-    public Token eat(TokenType type) {
+    public Token eat(TokenType type) throws LanguageException {
         Token upcoming = upcomingTokens.poll();
         if (upcoming == null) {
             throw new ParsingException(type);

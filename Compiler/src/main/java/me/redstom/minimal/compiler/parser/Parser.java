@@ -1,5 +1,6 @@
 package me.redstom.minimal.compiler.parser;
 
+import me.redstom.minimal.compiler.exceptions.LanguageException;
 import me.redstom.minimal.compiler.lexer.Token;
 import me.redstom.minimal.compiler.parser.ast.ProgramParser;
 import org.springframework.context.ApplicationContext;
@@ -18,7 +19,7 @@ public class Parser {
         parsingRegistry.scan(appCtx);
     }
 
-    public ProgramParser.Program parse(Queue<Token> tokens) {
+    public ProgramParser.Program parse(Queue<Token> tokens) throws LanguageException {
         var context = new ParsingContext(tokens, parsingRegistry);
         return context.parse(ProgramParser.Program.class);
     }

@@ -3,7 +3,7 @@ package me.redstom.minimal.compiler.exceptions;
 import me.redstom.minimal.compiler.lexer.Token;
 import me.redstom.minimal.compiler.lexer.TokenType;
 
-public class ParsingException extends RuntimeException {
+public class ParsingException extends LanguageException {
 
     public ParsingException(String valueExpected, Token actual) {
         super(STR."Expected token \"\{valueExpected}\" but got \{actual.type().stringifier().apply(actual)}");

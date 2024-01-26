@@ -1,6 +1,6 @@
 package me.redstom.minimal.compiler.exceptions;
 
-public class UnknownTokenException extends RuntimeException {
+public class UnknownTokenException extends LanguageException {
     public UnknownTokenException(int position, int line, int col, String input) {
         super(STR."""
 

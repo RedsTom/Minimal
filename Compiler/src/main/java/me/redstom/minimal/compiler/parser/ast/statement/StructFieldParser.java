@@ -1,5 +1,6 @@
 package me.redstom.minimal.compiler.parser.ast.statement;
 
+import me.redstom.minimal.compiler.exceptions.LanguageException;
 import me.redstom.minimal.compiler.lexer.TokenType;
 import me.redstom.minimal.compiler.parser.Parses;
 import me.redstom.minimal.compiler.parser.ParsingContext;
@@ -10,7 +11,7 @@ import me.redstom.minimal.compiler.parser.ast.TypeParser;
 public class StructFieldParser implements IParser<StructFieldParser.StructField> {
 
     @Override
-    public StructField parse(ParsingContext context) {
+    public StructField parse(ParsingContext context) throws LanguageException {
         String name = context.eat(TokenType.IDENTIFIER).value();
         context.eat(TokenType.COLON);
         TypeParser.Type type = context.parse(TypeParser.Type.class);

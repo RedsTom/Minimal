@@ -1,5 +1,6 @@
 package me.redstom.minimal.compiler.parser.ast;
 
+import me.redstom.minimal.compiler.exceptions.LanguageException;
 import me.redstom.minimal.compiler.lexer.TokenType;
 import me.redstom.minimal.compiler.parser.Parses;
 import me.redstom.minimal.compiler.parser.ParsingContext;
@@ -12,7 +13,7 @@ import java.util.List;
 public class TypeParser implements IParser<TypeParser.Type> {
 
     @Override
-    public Type parse(ParsingContext context) {
+    public Type parse(ParsingContext context) throws LanguageException {
         String name = context.eat(TokenType.IDENTIFIER).value();
         List<Type> generics = new ArrayList<>();
 

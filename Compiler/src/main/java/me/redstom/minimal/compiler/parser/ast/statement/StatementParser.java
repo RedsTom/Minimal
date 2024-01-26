@@ -1,5 +1,6 @@
 package me.redstom.minimal.compiler.parser.ast.statement;
 
+import me.redstom.minimal.compiler.exceptions.LanguageException;
 import me.redstom.minimal.compiler.lexer.Token;
 import me.redstom.minimal.compiler.parser.ParsingContext;
 import me.redstom.minimal.compiler.parser.Parses;
@@ -10,7 +11,7 @@ public class StatementParser implements IParser<StatementParser.Statement> {
 
 
     @Override
-    public Statement parse(ParsingContext context) {
+    public Statement parse(ParsingContext context) throws LanguageException {
         Token token = context.upcomingTokens().peek();
         return switch (token.type()) {
             case KEYWORD -> switch (token.value()) {

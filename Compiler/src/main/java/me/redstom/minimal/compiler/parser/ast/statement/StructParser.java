@@ -1,5 +1,6 @@
 package me.redstom.minimal.compiler.parser.ast.statement;
 
+import me.redstom.minimal.compiler.exceptions.LanguageException;
 import me.redstom.minimal.compiler.lexer.TokenType;
 import me.redstom.minimal.compiler.parser.ParsingContext;
 import me.redstom.minimal.compiler.parser.Parses;
@@ -15,7 +16,7 @@ import java.util.Objects;
 public class StructParser implements IParser<StructParser.Struct> {
 
     @Override
-    public Struct parse(ParsingContext context) {
+    public Struct parse(ParsingContext context) throws LanguageException {
         context.eat(TokenType.KEYWORD, "struct");
         TypeParser.Type name = context.parse(TypeParser.Type.class);
         context.eat(TokenType.KEYWORD, "is");

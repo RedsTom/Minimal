@@ -1,5 +1,6 @@
 package me.redstom.minimal.compiler.lexer;
 
+import me.redstom.minimal.compiler.exceptions.LanguageException;
 import me.redstom.minimal.compiler.exceptions.UnknownTokenException;
 
 import java.util.*;
@@ -11,7 +12,7 @@ import static java.lang.StringTemplate.STR;
 
 public class Lexer {
 
-    public Queue<Token> lex(String input) {
+    public Queue<Token> lex(String input) throws LanguageException {
         var tokens = new ArrayDeque<Token>();
 
         var position = 0;
