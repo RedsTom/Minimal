@@ -1,0 +1,69 @@
+package me.redstom.minimal.compiler.parser;
+
+import me.redstom.minimal.compiler.exceptions.ParsingException;
+import me.redstom.minimal.compiler.lexer.Token;
+import me.redstom.minimal.compiler.lexer.TokenType;
+
+import java.util.ArrayDeque;
+import java.util.PriorityQueue;
+import java.util.Queue;
+
+public class ParsingContext {
+
+    private final Queue<Token> upcomingTokens;
+    private final ParsingRegistry parsingRegistry;
+
+    public ParsingContext(Queue<Token> upcomingTokens, ParsingRegistry parsingRegistry) {
+        this.upcomingTokens = upcomingTokens;
+        this.parsingRegistry = parsingRegistry;
+    }
+
+    public Queue<Token> upcomingTokens() {
+        return upcomingTokens;
+    }
+
+    public ParsingRegistry parsingRegistry() {
+        return parsingRegistry;
+    }
+
+    public ParsingContext copy() {
+        return new ParsingContext(upcomingTokens, parsingRegistry);
+    }
+
+    public <T> T parse(Class<T> type) {
+        return parsingRegistry.ofType(type).parse(copy());
+    }
+
+    public Token eat(TokenType type, String value) {
+        Token upcoming = upcomingTokens.poll();
+
+        if (upcoming == null) {
+            throw new ParsingException(type);
+        }
+
+        if (!upcoming.value().equals(value)) {
+            throw new ParsingException(value, upcoming);
+        }
+        return upcoming;
+    }
+
+    public Token eat(TokenType type) {
+        Token upcoming = upcomingTokens.poll();
+        if (upcoming == null) {
+            throw new ParsingException(type);
+        }
+        if (upcoming.type() != type) {
+            throw new ParsingException(type, upcoming);
+        }
+        return upcoming;
+    }
+
+    public boolean lookahead(TokenType tokenType) {
+        Token upcoming = upcomingTokens.peek();
+        if (upcoming == null) {
+            return false;
+        }
+
+        return upcoming.type() == tokenType;
+    }
+}
