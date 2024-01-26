@@ -1,0 +1,31 @@
+struct List<T> is
+   elements: Array<T>
+.
+
+ext on List<T> is
+    func += takes element: T returns Result<None> is
+        elements += element
+        rt None
+    .
+
+    func stringified returns String is
+        rt "[" + join(map elements to _ -> _ stringified.) with "," + "]"
+    .
+.
+
+func map<T, R> takes list: List<T> "to" function: T -> R returns List<R> is
+    let result = List<R> {}
+    loop list.elements as _ ->
+        result += function _
+    .
+    rt result
+.
+
+internal func loop<T> takes array: Array<T> "as" body: Func<T, Result<None>> returns Result<None>
+
+func main is
+    let names = List<String> { elements = ["Alice", "Bob"] }
+    names += "John"
+
+    print names stringified
+.

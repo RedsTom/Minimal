@@ -1,0 +1,80 @@
+STRING ::=
+ "\"" /.*/ "\""
+;
+
+NUMBER ::=
+  ("+"|"-")? /\d+/ ("." \d+)?
+;
+
+BOOLEAN ::=
+  "true" | "false"
+;
+
+Identifier ::=
+  [a-zA-Z][a-zA-Z0-9]*
+;
+
+Literal ::= STRING | NUMBER | BOOLEAN | Identifier
+Expression ::= Literal | Call | "(" Expression ")"
+
+StatementList ::=
+  Statement
+  | Statement "\n" StatementList
+  ;
+
+Statement ::=
+    VariableDeclaration
+    | Assignment
+    | Function
+    | Struct
+    | Extension
+    | Call
+    ;
+
+Generics ::=
+    "<" Type ("," Type)* ">"
+
+Type ::=
+  Identifier (Generics)?
+;
+
+VariableIdentifier ::=
+  Identifier (":" Type)?
+;
+
+VariableDeclaration ::=
+    "let" VariableIdentifier ("=" Expression)?
+;
+
+Assignment ::=
+    VariableIdentifier "=" Expression
+;
+
+Declarations ::=
+  (VariableIdentifier "\n")*
+;
+
+FunctionArgument ::=
+  Identifier (":" Type)?
+;
+
+Function ::=
+  ("internal")? "func" Identifier (Generics) ("takes" (FunctionArgument STRING)* FunctionArgument)?
+  ("returns" Type) "is" StatementList "."
+;
+
+Struct ::=
+  "struct" Type "is" (VariableIdentifier "\n")* "."
+;
+
+Extension ::=
+  "ext" "on" Type "is" (Declarations)? "."
+;
+
+Callback ::=
+    FunctionArgument "=>" StatementList "."
+;
+
+Call ::=
+  Expression (Expression)*
+;
