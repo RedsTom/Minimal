@@ -8,6 +8,7 @@ import me.redstom.minimal.compiler.parser.Parses;
 import me.redstom.minimal.compiler.parser.ParsingContext;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Parses(TypeParser.Type.class)
@@ -28,12 +29,12 @@ public class TypeParser implements IParser<TypeParser.Type> {
             context.eat(TokenType.RIGHT_RAFTER);
         }
 
-        return new Type(name, generics.toArray(Type[]::new));
+        return new Type(name, Collections.unmodifiableList(generics));
     }
 
     public record Type(
             String name,
-            Type[] generics
+            List<Type> generics
     ) {
     }
 }

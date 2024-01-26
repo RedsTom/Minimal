@@ -9,10 +9,7 @@ import me.redstom.minimal.compiler.parser.Parses;
 import me.redstom.minimal.compiler.parser.ast.IParser;
 import me.redstom.minimal.compiler.parser.ast.TypeParser;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Parses(StructParser.Struct.class)
 public class StructParser implements IParser<StructParser.Struct> {
@@ -29,12 +26,12 @@ public class StructParser implements IParser<StructParser.Struct> {
         }
         context.eat(TokenType.DOT);
 
-        return new Struct(name, fields.toArray(StructFieldParser.StructField[]::new));
+        return new Struct(name, Collections.unmodifiableList(fields));
     }
 
     public record Struct(
             TypeParser.Type type,
-            StructFieldParser.StructField[] fields
+            List<StructFieldParser.StructField> fields
     ) implements StatementParser.Statement {
     }
 }
