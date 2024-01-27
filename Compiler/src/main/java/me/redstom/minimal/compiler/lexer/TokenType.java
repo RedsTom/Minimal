@@ -1,5 +1,6 @@
 package me.redstom.minimal.compiler.lexer;
 
+import java.security.Key;
 import java.util.function.Function;
 import java.util.regex.Pattern;
 

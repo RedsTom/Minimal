@@ -51,7 +51,10 @@ public class Lexer {
 
             String group = matcher.group();
 
-            return new Token(type, group, line, column, group.length(), position);
+            return new Token(type, switch (type) {
+                case STRING -> group.substring(1, group.length() - 1);
+                default -> group;
+            }, line, column, group.length(), position);
         }
 
         return null;

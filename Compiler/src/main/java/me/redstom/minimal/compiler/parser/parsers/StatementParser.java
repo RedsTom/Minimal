@@ -1,9 +1,12 @@
-package me.redstom.minimal.compiler.parser.parsers.statement;
+package me.redstom.minimal.compiler.parser.parsers;
 
 import me.redstom.minimal.compiler.exceptions.LanguageException;
+import me.redstom.minimal.compiler.exceptions.MissingParserException;
+import me.redstom.minimal.compiler.lexer.Keyword;
 import me.redstom.minimal.compiler.lexer.Token;
 import me.redstom.minimal.compiler.parser.ParsingContext;
 import me.redstom.minimal.compiler.parser.Parses;
+import me.redstom.minimal.compiler.parser.nodes.extension.Extension;
 import me.redstom.minimal.compiler.parser.parsers.IParser;
 import me.redstom.minimal.compiler.parser.nodes.Statement;
 import me.redstom.minimal.compiler.parser.nodes.struct.Struct;
@@ -16,11 +19,12 @@ public class StatementParser implements IParser<Statement> {
     public Statement parse(ParsingContext context) throws LanguageException {
         Token token = context.upcomingTokens().peek();
         return switch (token.type()) {
-            case KEYWORD -> switch (token.value()) {
-                case "struct" -> context.parse(Struct.class);
-                default -> throw new RuntimeException("Unknown keyword " + token.value());
+            case KEYWORD -> switch (Keyword.get(token.value())) {
+                case Keyword.STRUCT -> context.parse(Struct.class);
+                case Keyword.EXT -> context.parse(Extension.class);
+                default -> throw new MissingParserException(token);
             };
-            default -> throw new RuntimeException("Unknown token type " + token.type());
+            default -> throw new LanguageException("Unknown token type " + token.type());
         };
     }
 

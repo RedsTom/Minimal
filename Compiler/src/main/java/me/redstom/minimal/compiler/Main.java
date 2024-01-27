@@ -21,6 +21,12 @@ public void exec() throws LanguageException {
                 test: A
                 machin: B
             .
+                        
+            ext on Test is
+                func test takes a: A, b: B "to" c: C returns Number is
+                    rt 1
+                .
+            .
             """;
 
     var tokens = lexer.lex(code);
@@ -54,10 +60,13 @@ private static void beautify(String input) {
             } else if ((i + 1) < chars.length && chars[i + 1] != ',') {
                 finalString.append("\n").append(" ".repeat(indent * 4));
             }
-        } else if (c == ',') {
+        } else if ((i + 1) < chars.length && c == ',' && chars[i + 1] != ',') {
             finalString.append(",\n").append(" ".repeat(indent * 4));
         } else {
             finalString.append(c);
+            if ((i + 1) < chars.length && chars[i + 1] == ']') {
+                finalString.append("\n").append(" ".repeat(Math.max(0, indent - 1) * 4));
+            }
         }
     }
     System.out.println(finalString);

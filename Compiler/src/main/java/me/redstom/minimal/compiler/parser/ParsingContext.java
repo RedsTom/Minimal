@@ -4,6 +4,7 @@ import me.redstom.minimal.compiler.exceptions.LanguageException;
 import me.redstom.minimal.compiler.exceptions.ParsingException;
 import me.redstom.minimal.compiler.lexer.Token;
 import me.redstom.minimal.compiler.lexer.TokenType;
+import me.redstom.minimal.compiler.lexer.TokenValue;
 
 import java.util.ArrayDeque;
 import java.util.PriorityQueue;
@@ -35,16 +36,21 @@ public class ParsingContext {
         return parsingRegistry.ofType(type).parse(copy());
     }
 
-    public Token eat(TokenType type, String value) throws LanguageException {
+    public Token eat(TokenValue value) throws LanguageException {
         Token upcoming = upcomingTokens.poll();
 
         if (upcoming == null) {
-            throw new ParsingException(type);
+            throw new ParsingException(value.type());
         }
 
-        if (!upcoming.value().equals(value)) {
-            throw new ParsingException(value, upcoming);
+        if (upcoming.type() != value.type()) {
+            throw new ParsingException(value.type(), upcoming);
         }
+
+        if (!upcoming.value().equals(value.value())) {
+            throw new ParsingException(value.value(), upcoming);
+        }
+
         return upcoming;
     }
 
@@ -66,5 +72,14 @@ public class ParsingContext {
         }
 
         return upcoming.type() == tokenType;
+    }
+
+    public boolean lookahead(TokenValue tokenValue) {
+        Token upcoming = upcomingTokens.peek();
+        if (upcoming == null) {
+            return false;
+        }
+
+        return upcoming.type() == tokenValue.type() && upcoming.value().equals(tokenValue.value());
     }
 }
