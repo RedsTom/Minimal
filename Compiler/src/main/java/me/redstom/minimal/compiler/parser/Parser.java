@@ -14,7 +14,7 @@ public class Parser {
     private final ParsingRegistry parsingRegistry;
 
     public Parser() {
-        this.appCtx = new AnnotationConfigApplicationContext("me.redstom.minimal.compiler.parser.ast");
+        this.appCtx = new AnnotationConfigApplicationContext("me.redstom.minimal.compiler.parser.parsers");
         this.parsingRegistry = new ParsingRegistry();
         parsingRegistry.scan(appCtx);
     }

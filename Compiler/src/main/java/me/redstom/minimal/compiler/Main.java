@@ -17,7 +17,7 @@ public void exec() throws LanguageException {
     Parser parser = new Parser();
 
     String code = """
-            struct Test<A<C>> is
+            struct Test<A, B> is
                 test: A
                 machin: B
             .

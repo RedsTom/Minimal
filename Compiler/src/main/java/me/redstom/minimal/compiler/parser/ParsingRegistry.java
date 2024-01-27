@@ -1,5 +1,6 @@
 package me.redstom.minimal.compiler.parser;
 
+import me.redstom.minimal.compiler.exceptions.MissingParserException;
 import me.redstom.minimal.compiler.parser.parsers.IParser;
 import org.springframework.context.ApplicationContext;
 
@@ -19,11 +20,11 @@ public class ParsingRegistry {
     }
 
     @SuppressWarnings("unchecked")
-    public <T> IParser<T> ofType(Class<T> type) {
+    public <T> IParser<T> ofType(Class<T> type) throws MissingParserException {
         return (IParser<T>) entries.stream()
                 .filter(entry -> entry.type().equals(type))
                 .findFirst()
-                .orElseThrow(() -> new RuntimeException(STR."No parser found for type \{type.getName()}"))
+                .orElseThrow(() -> new MissingParserException(type))
                 .parser();
     }
 
