@@ -9,6 +9,8 @@ public void main() {
         exec();
     } catch (LanguageException e) {
         System.err.println(e.getMessage());
+
+        e.printStackTrace();
     }
 }
 
@@ -23,7 +25,7 @@ public void exec() throws LanguageException {
             .
                         
             ext on Test is
-                func test takes a: A, b: B "to" c: C returns Number is
+                func test is
                     rt 1
                 .
             .
