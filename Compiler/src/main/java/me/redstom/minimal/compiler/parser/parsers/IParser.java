@@ -1,4 +1,4 @@
-package me.redstom.minimal.compiler.parser.ast;
+package me.redstom.minimal.compiler.parser.parsers;
 
 import me.redstom.minimal.compiler.exceptions.LanguageException;
 import me.redstom.minimal.compiler.parser.ParsingContext;

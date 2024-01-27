@@ -1,18 +1,17 @@
-package me.redstom.minimal.compiler.parser.ast;
+package me.redstom.minimal.compiler.parser.parsers;
 
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
 import me.redstom.minimal.compiler.exceptions.LanguageException;
 import me.redstom.minimal.compiler.lexer.TokenType;
 import me.redstom.minimal.compiler.parser.Parses;
 import me.redstom.minimal.compiler.parser.ParsingContext;
+import me.redstom.minimal.compiler.parser.nodes.type.Type;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-@Parses(TypeParser.Type.class)
-public class TypeParser implements IParser<TypeParser.Type> {
+@Parses(Type.class)
+public class TypeParser implements IParser<Type> {
 
     @Override
     public Type parse(ParsingContext context) throws LanguageException {
@@ -32,9 +31,4 @@ public class TypeParser implements IParser<TypeParser.Type> {
         return new Type(name, Collections.unmodifiableList(generics));
     }
 
-    public record Type(
-            String name,
-            List<Type> generics
-    ) {
-    }
 }

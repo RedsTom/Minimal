@@ -1,15 +1,7 @@
 import me.redstom.minimal.compiler.exceptions.LanguageException;
 import me.redstom.minimal.compiler.lexer.Lexer;
 import me.redstom.minimal.compiler.parser.Parser;
-import me.redstom.minimal.compiler.parser.ast.ProgramParser;
-
-import java.lang.reflect.Array;
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
-import java.util.stream.Collectors;
+import me.redstom.minimal.compiler.parser.nodes.Program;
 
 
 public void main() {
@@ -32,8 +24,7 @@ public void exec() throws LanguageException {
             """;
 
     var tokens = lexer.lex(code);
-    ProgramParser.Program program = parser.parse(tokens);
-    System.out.println(program);
+    Program program = parser.parse(tokens);
     beautify(program.toString());
 }
 

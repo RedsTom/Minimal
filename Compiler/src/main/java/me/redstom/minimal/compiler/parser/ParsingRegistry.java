@@ -1,6 +1,6 @@
 package me.redstom.minimal.compiler.parser;
 
-import me.redstom.minimal.compiler.parser.ast.IParser;
+import me.redstom.minimal.compiler.parser.parsers.IParser;
 import org.springframework.context.ApplicationContext;
 
 import java.util.ArrayList;
