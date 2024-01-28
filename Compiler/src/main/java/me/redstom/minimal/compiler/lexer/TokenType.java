@@ -10,10 +10,8 @@ public enum TokenType {
     BOOLEAN(Pattern.compile("^(true|false)"), Token::value),
     LEFT_PAREN(Pattern.compile("^\\("), _ -> "("),
     RIGHT_PAREN(Pattern.compile("^\\)"), _ -> ")"),
-    LEFT_BRACE(Pattern.compile("^\\{"), _ -> "{"),
-    RIGHT_BRACE(Pattern.compile("^}"), _ -> "}"),
-    LEFT_RAFTER(Pattern.compile("^<"), _ -> "<"),
-    RIGHT_RAFTER(Pattern.compile("^>"), _ -> ">"),
+    LEFT_RAFTER(just("<"), _ -> "<"),
+    RIGHT_RAFTER(just(">"), _ -> ">"),
     LEFT_BRACKET(Pattern.compile("^\\["), _ -> "["),
     RIGHT_BRACKET(Pattern.compile("^]"), _ -> "]"),
     LEFT_CURLY_BRACE(Pattern.compile("^\\{"), _ -> "{"),
@@ -21,22 +19,18 @@ public enum TokenType {
     ARROW(Pattern.compile("^->"), _ -> "->"),
     AROBASE(Pattern.compile("^@"), _ -> "@"),
     COLON(Pattern.compile("^:"), _ -> ":"),
-    EQUAL(Pattern.compile("^="), _ -> "="),
+    EQUAL(just("="), _ -> "="),
     DOT(Pattern.compile("^\\."), _ -> "."),
     COMMA(Pattern.compile("^,"), _ -> ","),
     NEW_LINE(Pattern.compile("^\\n"), _ -> "\n", true),
     SPACE(Pattern.compile("^\\s+"), true),
-    KEYWORD(Pattern.compile("^(let|struct|ext|on|is|func|takes|returns|rt|internal)?(?=\\s)"), t -> Keyword.get(t.value()).stringify()),
+    KEYWORD(Pattern.compile(Keyword.generateRegex()), t -> Keyword.get(t.value()).stringify()),
     IDENTIFIER(Pattern.compile(".+?(?=<|>|:|\\s|\\.|\\(|\\)|,|[|]|\\{|})"), t -> STR."identifier: \{t.value()}"),
     ;
 
     private Pattern pattern;
     private boolean shouldBeIgnored;
     private Function<Token, String> stringifier;
-
-    TokenType(Pattern pattern) {
-        this(pattern, Record::toString);
-    }
 
     TokenType(Pattern pattern, Function<Token, String> stringifier) {
         this(pattern, stringifier, false);
@@ -62,5 +56,9 @@ public enum TokenType {
 
     public Function<Token, String> stringifier() {
         return stringifier;
+    }
+
+    private static Pattern just(String character) {
+        return Pattern.compile(STR."^(?<![*\\/\\+\\-=])\{character}(?![*\\/\\+\\-=])");
     }
 }

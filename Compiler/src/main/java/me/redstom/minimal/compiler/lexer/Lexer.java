@@ -17,7 +17,7 @@ public class Lexer {
 
         var position = 0;
         var line = 1;
-        var column = 1;
+        var column = 0;
 
         while (position < input.length()) {
             var token = lexToken(input.substring(position), position, line, column);
@@ -31,7 +31,7 @@ public class Lexer {
 
             if (token.type() == TokenType.NEW_LINE) {
                 line++;
-                column = 1;
+                column = 0;
             }
             if (token.type().shouldBeIgnored()) continue;
 

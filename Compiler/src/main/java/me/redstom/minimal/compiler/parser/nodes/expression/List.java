@@ -1,6 +1,6 @@
 package me.redstom.minimal.compiler.parser.nodes.expression;
 
-public record Identifier(
-        String value
+public record List(
+    java.util.List<Expression> content
 ) implements Expression {
 }

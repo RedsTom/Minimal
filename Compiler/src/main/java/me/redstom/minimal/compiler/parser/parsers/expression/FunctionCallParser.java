@@ -1,6 +1,7 @@
 package me.redstom.minimal.compiler.parser.parsers.expression;
 
 import me.redstom.minimal.compiler.exceptions.LanguageException;
+import me.redstom.minimal.compiler.exceptions.ParsingException;
 import me.redstom.minimal.compiler.lexer.Keyword;
 import me.redstom.minimal.compiler.lexer.TokenType;
 import me.redstom.minimal.compiler.parser.Parses;
@@ -32,7 +33,12 @@ public class FunctionCallParser implements IParser<FunctionCall> {
             return call;
         } catch (LanguageException e) {
             ParsingContext contextCopy = context.copyClone();
-            FunctionCall call = tryParseNormalCall(contextCopy);
+            FunctionCall call;
+            try {
+                call = tryParseNormalCall(contextCopy);
+            } catch (Exception eprime) {
+                throw new ParsingException(context.upcomingTokens().peek(), e.getMessage() + "\n\tor\n" + eprime.getMessage());
+            }
 
             context.upcomingTokens().clear();
             context.upcomingTokens().addAll(contextCopy.upcomingTokens());

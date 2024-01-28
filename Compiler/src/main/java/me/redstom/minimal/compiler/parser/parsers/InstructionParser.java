@@ -6,6 +6,7 @@ import me.redstom.minimal.compiler.lexer.Token;
 import me.redstom.minimal.compiler.parser.Parses;
 import me.redstom.minimal.compiler.parser.ParsingContext;
 import me.redstom.minimal.compiler.parser.nodes.Instruction;
+import me.redstom.minimal.compiler.parser.nodes.VariableAssignation;
 import me.redstom.minimal.compiler.parser.nodes.VariableDeclaration;
 import me.redstom.minimal.compiler.parser.nodes.expression.FunctionCall;
 import me.redstom.minimal.compiler.parser.nodes.function.Return;
@@ -22,7 +23,8 @@ public class InstructionParser implements IParser<Instruction> {
                 default -> throw new LanguageException("Unknown keyword " + token.value());
             };
             case LEFT_PAREN -> context.parse(FunctionCall.class);
-            default -> throw new LanguageException("Unknown token type " + token.type());
+            case IDENTIFIER -> context.parse(VariableAssignation.class);
+            default -> throw new LanguageException(token.line() + ":" + token.column() + " Unknown token type " + token.type());
         };
     }
 }

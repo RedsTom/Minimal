@@ -9,6 +9,7 @@ public void main() {
         exec();
     } catch (LanguageException e) {
         System.err.println(e.getMessage());
+        e.printStackTrace();
     }
 }
 
@@ -17,9 +18,53 @@ public void exec() throws LanguageException {
     Parser parser = new Parser();
 
     String code = """
-            func main takes args: Array<String> is
-                rt (args map _ to @-> rt (arg + "!").)
+            struct List<T> is
+                elements: Array<T>
             .
+             
+            ext on List is
+
+                func stringified returns String is
+                    let joined = (join (map self to @ _: Any -> rt (_ + "!").) with ",")
+                    rt joined
+                .
+            .
+             
+            ext on Number is
+                func through takes end: Number returns List<Number> is
+                    let result = List<Number> {
+                        elements = ["a"]
+                    }
+                    
+                    (while (self <= end) do @->
+                        (result += self)
+                        (self += 1)
+                    .)
+            
+                    rt result
+                .
+            .
+            
+            func map<T, R> takes list: List<T> "to" function: Function<T, R> returns List<R> is
+                let result = List<R> {}
+                (loop list:elements as @ _: Any ->
+                    (result += function _)
+                .)
+                (loop 5 through 10 as @_: Any ->
+                    (print _)
+                .)
+                rt result
+            .
+            
+            internal func loop<T> takes array: Array<T> "as" body: Func<T, Result<None>> returns Result<None>
+            
+            func main is
+                let names = List<String> {}
+                (names += "John")
+            
+                (print (names stringified))
+            .
+            
             """;
 
     var tokens = lexer.lex(code);

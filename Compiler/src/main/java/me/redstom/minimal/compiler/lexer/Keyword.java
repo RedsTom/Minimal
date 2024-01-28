@@ -3,7 +3,7 @@ package me.redstom.minimal.compiler.lexer;
 import java.util.Arrays;
 
 public enum Keyword implements TokenValue {
-    LET, STRUCT, EXT, ON, IS, FUNC, TAKES, RETURNS, RT, INTERNAL;
+    LET, STRUCT, EXT, ON, IS, FUNC, TAKES, RETURNS, RT, INTERNAL, IMPLS;
 
     public static Keyword get(String value) {
         return Arrays.stream(values())
@@ -29,7 +29,7 @@ public enum Keyword implements TokenValue {
                 builder.append("|");
             }
         }
-        builder.append(")?(?=\\s)");
+        builder.append(")?(?=\\s|\\.)");
         return builder.toString();
     }
 

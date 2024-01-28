@@ -4,34 +4,34 @@ struct List<T> is
 
 ext on List is
     func += takes element: T returns Result<None> is
-        elements += element
+        (elements += element)
         rt None
     .
 
     func stringified returns String is
-        rt "[" + join(map elements to _ -> _ stringified.) with "," + "]"
+        rt (("[" + join(map elements to _ -> _ stringified.)) with ("," + "]"))
     .
 .
 
 ext on Number is
     func .. takes end: Number returns List<Number> is
         let result = List<Number> {}
-        while self <= end do
-            result += self
-            self += 1
-        .
+        (while (self <= end) do @->
+            (result += self)
+            (self += 1)
+        .)
 
         rt result
 .
 
 func map<T, R> takes list: List<T> "to" function: T -> R returns List<R> is
     let result = List<R> {}
-    loop list.elements as _ ->
-        result += function _
-    .
-    loop 5..10 as _ ->
-        print _
-    .
+    (loop list.elements as @ _: Any ->
+        (result += function _)
+    .)
+    (loop 5..10 as _ ->
+        (print _)
+    .)
     rt result
 .
 
@@ -39,7 +39,7 @@ internal func loop<T> takes array: Array<T> "as" body: Func<T, Result<None>> ret
 
 func main is
     let names = List<String> { elements = ["Alice", "Bob"] }
-    names += "John"
+    (names += "John")
 
-    print names stringified
+    print (names stringified)
 .

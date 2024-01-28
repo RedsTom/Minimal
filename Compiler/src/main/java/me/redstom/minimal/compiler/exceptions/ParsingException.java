@@ -18,6 +18,10 @@ public class ParsingException extends LanguageException {
         super(STR."Expected \{tryStringify(expected)} but got end of file");
     }
 
+    public ParsingException(Token at, String error) {
+        super(STR."\{at.line()}:\{at.column()} \{error}");
+    }
+
     private static String tryStringify(TokenType type) {
         try {
             return STR."\"\{type.stringifier().apply(null)}\"";

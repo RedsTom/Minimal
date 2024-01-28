@@ -9,5 +9,5 @@ public record VariableDeclaration(
         String name,
         Optional<ApplicativeType> type,
         Optional<Expression> value
-        ) implements Instruction {
+) implements Instruction {
 }

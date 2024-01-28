@@ -10,6 +10,7 @@ import me.redstom.minimal.compiler.parser.nodes.function.Function;
 import me.redstom.minimal.compiler.parser.nodes.function.FunctionParameterList;
 import me.redstom.minimal.compiler.parser.nodes.type.ApplicativeType;
 import me.redstom.minimal.compiler.parser.nodes.type.DeclarativeType;
+import me.redstom.minimal.compiler.parser.nodes.type.Type;
 import me.redstom.minimal.compiler.parser.parsers.IParser;
 
 import java.util.ArrayList;
@@ -24,12 +25,14 @@ public class FunctionParser implements IParser<Function> {
 
         String name = context.eat(TokenType.IDENTIFIER).value();
 
-        var generics = new ArrayList<DeclarativeType>();
-        if (context.lookahead(TokenType.RIGHT_RAFTER)) {
+        var generics = new ArrayList<Type>();
+        if (context.lookahead(TokenType.LEFT_RAFTER)) {
             context.eat(TokenType.LEFT_RAFTER);
 
-            while (!context.lookahead(TokenType.RIGHT_RAFTER)) {
-                generics.add(context.parse(DeclarativeType.class));
+            generics.add(context.parse(Type.class));
+            while (context.lookahead(TokenType.COMMA)) {
+                context.eat(TokenType.COMMA);
+                generics.add(context.parse(Type.class));
             }
 
             context.eat(TokenType.RIGHT_RAFTER);
