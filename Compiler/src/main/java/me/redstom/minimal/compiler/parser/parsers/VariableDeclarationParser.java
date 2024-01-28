@@ -5,7 +5,7 @@ import me.redstom.minimal.compiler.lexer.Keyword;
 import me.redstom.minimal.compiler.lexer.TokenType;
 import me.redstom.minimal.compiler.parser.Parses;
 import me.redstom.minimal.compiler.parser.ParsingContext;
-import me.redstom.minimal.compiler.parser.nodes.Expression;
+import me.redstom.minimal.compiler.parser.nodes.expression.Expression;
 import me.redstom.minimal.compiler.parser.nodes.VariableDeclaration;
 import me.redstom.minimal.compiler.parser.nodes.type.ApplicativeType;
 

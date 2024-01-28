@@ -16,15 +16,18 @@ public enum TokenType {
     RIGHT_RAFTER(Pattern.compile("^>"), _ -> ">"),
     LEFT_BRACKET(Pattern.compile("^\\["), _ -> "["),
     RIGHT_BRACKET(Pattern.compile("^]"), _ -> "]"),
+    LEFT_CURLY_BRACE(Pattern.compile("^\\{"), _ -> "{"),
+    RIGHT_CURLY_BRACE(Pattern.compile("^}"), _ -> "}"),
+    ARROW(Pattern.compile("^->"), _ -> "->"),
+    AROBASE(Pattern.compile("^@"), _ -> "@"),
     COLON(Pattern.compile("^:"), _ -> ":"),
     EQUAL(Pattern.compile("^="), _ -> "="),
     DOT(Pattern.compile("^\\."), _ -> "."),
     COMMA(Pattern.compile("^,"), _ -> ","),
-    ARROW(Pattern.compile("^->"), _ -> "->"),
     NEW_LINE(Pattern.compile("^\\n"), _ -> "\n", true),
     SPACE(Pattern.compile("^\\s+"), true),
-    KEYWORD(Pattern.compile("^(let|struct|ext|on|is|func|takes|returns|rt|internal)?(?=\\s)"), t -> "KW(" + t.value().toUpperCase() + ")"),
-    IDENTIFIER(Pattern.compile(".+?(?=<|>|:|\\s|\\.|\\(|\\)|,|[|]|\\{|})"), t -> "ID(" + t.value() + ")"),
+    KEYWORD(Pattern.compile("^(let|struct|ext|on|is|func|takes|returns|rt|internal)?(?=\\s)"), t -> Keyword.get(t.value()).stringify()),
+    IDENTIFIER(Pattern.compile(".+?(?=<|>|:|\\s|\\.|\\(|\\)|,|[|]|\\{|})"), t -> STR."identifier: \{t.value()}"),
     ;
 
     private Pattern pattern;

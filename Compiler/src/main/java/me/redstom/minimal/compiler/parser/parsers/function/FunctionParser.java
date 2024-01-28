@@ -11,18 +11,15 @@ import me.redstom.minimal.compiler.parser.nodes.function.FunctionParameterList;
 import me.redstom.minimal.compiler.parser.nodes.type.ApplicativeType;
 import me.redstom.minimal.compiler.parser.nodes.type.DeclarativeType;
 import me.redstom.minimal.compiler.parser.parsers.IParser;
-import org.springframework.expression.spel.ast.Identifier;
 
-import java.security.Key;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 @Parses(Function.class)
 public class FunctionParser implements IParser<Function> {
     @Override
     public Function parse(ParsingContext context) throws LanguageException {
-        boolean isInternal = context.lookahead(Keyword.INTERNAL) ? context.eat(Keyword.INTERNAL) != null : false;
+        boolean isInternal = context.lookahead(Keyword.INTERNAL) && context.eat(Keyword.INTERNAL) != null;
         context.eat(Keyword.FUNC);
 
         String name = context.eat(TokenType.IDENTIFIER).value();

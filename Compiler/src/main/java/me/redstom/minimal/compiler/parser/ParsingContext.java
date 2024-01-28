@@ -31,6 +31,9 @@ public class ParsingContext {
     public ParsingContext copy() {
         return new ParsingContext(upcomingTokens, parsingRegistry);
     }
+    public ParsingContext copyClone() {
+        return new ParsingContext(new ArrayDeque<>(upcomingTokens), parsingRegistry);
+    }
 
     public <T> T parse(Class<T> type) throws LanguageException {
         return parsingRegistry.ofType(type).parse(copy());
@@ -44,11 +47,11 @@ public class ParsingContext {
         }
 
         if (upcoming.type() != value.type()) {
-            throw new ParsingException(value.type(), upcoming);
+            throw new ParsingException(value, upcoming);
         }
 
         if (!upcoming.value().equals(value.value())) {
-            throw new ParsingException(value.value(), upcoming);
+            throw new ParsingException(value, upcoming);
         }
 
         return upcoming;

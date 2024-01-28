@@ -2,11 +2,12 @@ package me.redstom.minimal.compiler.exceptions;
 
 import me.redstom.minimal.compiler.lexer.Token;
 import me.redstom.minimal.compiler.lexer.TokenType;
+import me.redstom.minimal.compiler.lexer.TokenValue;
 
 public class ParsingException extends LanguageException {
 
-    public ParsingException(String valueExpected, Token actual) {
-        super(STR."\{actual.line()}:\{actual.column()} Unexpected \"\{actual.type().stringifier().apply(actual)}\". Expected \"\{valueExpected}\"");
+    public ParsingException(TokenValue expected, Token actual) {
+        super(STR."\{actual.line()}:\{actual.column()} Unexpected \"\{actual.type().stringifier().apply(actual)}\". Expected \"\{expected.stringify()}\"");
     }
 
     public ParsingException(TokenType expected, Token actual) {

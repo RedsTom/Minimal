@@ -1,6 +1,7 @@
 package me.redstom.minimal.compiler.parser.nodes.function;
 
 import me.redstom.minimal.compiler.parser.nodes.Block;
+import me.redstom.minimal.compiler.parser.nodes.Statement;
 import me.redstom.minimal.compiler.parser.nodes.type.ApplicativeType;
 import me.redstom.minimal.compiler.parser.nodes.type.DeclarativeType;
 
@@ -14,5 +15,5 @@ public record Function(
         Optional<ApplicativeType> returnType,
         Block body,
         boolean isInternal
-) {
+) implements Statement {
 }

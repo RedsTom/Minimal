@@ -9,8 +9,6 @@ public void main() {
         exec();
     } catch (LanguageException e) {
         System.err.println(e.getMessage());
-
-        e.printStackTrace();
     }
 }
 
@@ -19,15 +17,8 @@ public void exec() throws LanguageException {
     Parser parser = new Parser();
 
     String code = """
-            struct Test<A, B> is
-                test: A
-                machin: B
-            .
-                        
-            ext on Test is
-                func test is
-                    rt 1
-                .
+            func main takes args: Array<String> is
+                rt (args map _ to @-> rt (arg + "!").)
             .
             """;
 
