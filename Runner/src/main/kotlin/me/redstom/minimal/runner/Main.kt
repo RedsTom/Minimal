@@ -10,5 +10,10 @@ fun main(args: Array<String>) {
     val parser = ArgParser("MinimalCli")
 
     parser.subcommands(LexCommand, ParseCommand)
-    parser.parse(args)
+
+    try {
+        parser.parse(args)
+    } catch (e: Exception) {
+        System.err.println(e.message)
+    }
 }

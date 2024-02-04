@@ -7,7 +7,7 @@ import java.nio.file.Files
 import kotlin.io.path.Path
 import kotlin.io.path.readLines
 
-object ParseCommand : Subcommand("parse", "Parses the input file and prints the AST.") {
+object ParseCommand : Subcommand("parse", "Parses the input file and prints / exports the AST.") {
 
     val inputFile by argument(
         ArgType.String,
@@ -40,9 +40,12 @@ object ParseCommand : Subcommand("parse", "Parses the input file and prints the 
         if (outputFile != null) {
             val outputFile = Path(outputFile!!)
             Files.write(outputFile, astContent.toByteArray())
+
+            println("AST successfully written to $outputFile")
+        } else {
+            println(astContent)
         }
 
-        println(astContent)
     }
 
 }
