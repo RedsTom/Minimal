@@ -34,6 +34,6 @@ public class DeclarativeTypeParser implements IParser<DeclarativeType> {
             context.eat(TokenType.RIGHT_RAFTER);
         }
 
-        return new DeclarativeType(name, Collections.unmodifiableList(generics));
+        return new DeclarativeType(context.info().line(), context.info().column(), name, Collections.unmodifiableList(generics));
     }
 }

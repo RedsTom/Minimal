@@ -22,7 +22,7 @@ public class ProgramParser implements IParser<Program> {
             statements.add(statement);
         }
 
-        return new Program(Collections.unmodifiableList(statements));
+        return new Program(context.info().line(), context.info().column(), Collections.unmodifiableList(statements));
     }
 
 }

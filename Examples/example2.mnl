@@ -1,3 +1,5 @@
+struct _ is.
+
 ext on String is
     internal func + takes other: _ returns String
     internal func replace_first takes old: String "with" new: String returns String

@@ -1,4 +1,6 @@
 package me.redstom.minimal.compiler.parser.nodes.expression;
 
-public interface Expression {
+import me.redstom.minimal.compiler.parser.nodes.ASTNode;
+
+public interface Expression extends ASTNode {
 }

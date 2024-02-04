@@ -17,7 +17,7 @@ public class ParameterParser implements IParser<Parameter> {
         context.eat(TokenType.COLON);
         ApplicativeType type = context.parse(ApplicativeType.class);
 
-        return new Parameter(name, type);
+        return new Parameter(context.info().line(), context.info().column(), name, type);
     }
 
 }

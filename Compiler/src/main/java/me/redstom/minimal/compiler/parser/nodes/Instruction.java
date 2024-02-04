@@ -1,4 +1,4 @@
 package me.redstom.minimal.compiler.parser.nodes;
 
-public interface Instruction {
+public interface Instruction extends ASTNode {
 }

@@ -41,6 +41,6 @@ public class StructParser implements IParser<Struct> {
         }
         context.eat(TokenType.DOT);
 
-        return new Struct(type, Collections.unmodifiableList(fields), Collections.unmodifiableList(implementations));
+        return new Struct(context.info().line(), context.info().column(), type, Collections.unmodifiableList(fields), Collections.unmodifiableList(implementations));
     }
 }

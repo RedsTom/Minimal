@@ -18,7 +18,7 @@ public class FunctionParameterListParser implements IParser<FunctionParameterLis
     @Override
     public FunctionParameterList parse(ParsingContext context) throws LanguageException {
         if (!context.lookahead(Keyword.TAKES)) {
-            return new FunctionParameterList(Collections.emptyList(), Collections.emptyList());
+            return new FunctionParameterList(context.info().line(), context.info().column(), Collections.emptyList(), Collections.emptyList());
         }
 
         context.eat(Keyword.TAKES);
@@ -40,6 +40,6 @@ public class FunctionParameterListParser implements IParser<FunctionParameterLis
         }
 
 
-        return new FunctionParameterList(Collections.unmodifiableList(parameters), Collections.unmodifiableList(joiners));
+        return new FunctionParameterList(context.info().line(), context.info().column(), Collections.unmodifiableList(parameters), Collections.unmodifiableList(joiners));
     }
 }

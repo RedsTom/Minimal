@@ -14,7 +14,7 @@ public class TypeParser implements IParser<Type> {
     public Type parse(ParsingContext context) throws LanguageException {
         String name = context.eat(TokenType.IDENTIFIER).value();
 
-        return new Type(name);
+        return new Type(context.info().line(), context.info().column(), name);
     }
 
 }

@@ -31,6 +31,6 @@ public class LambdaExpressionParser implements IParser<LambdaExpression> {
         context.eat(TokenType.ARROW);
         Block body = context.parse(Block.class);
 
-        return new LambdaExpression(Collections.unmodifiableList(parameters), body);
+        return new LambdaExpression(context.info().line(), context.info().column(), Collections.unmodifiableList(parameters), body);
     }
 }

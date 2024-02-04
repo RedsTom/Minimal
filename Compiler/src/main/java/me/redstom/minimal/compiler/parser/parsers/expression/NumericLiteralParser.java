@@ -12,6 +12,6 @@ public class NumericLiteralParser implements IParser<NumericLiteral> {
     @Override
     public NumericLiteral parse(ParsingContext context) throws LanguageException {
         double value = Double.parseDouble(context.eat(TokenType.NUMBER).value());
-        return new NumericLiteral(value);
+        return new NumericLiteral(context.info().line(), context.info().column(), value);
     }
 }

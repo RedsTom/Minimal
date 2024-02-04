@@ -8,8 +8,10 @@ import me.redstom.minimal.compiler.parser.nodes.type.DeclarativeType;
 import java.util.List;
 
 public record Struct(
+        long line,
+        long column,
         DeclarativeType type,
         List<Parameter> fields,
         List<ApplicativeType> implementations
-) implements Statement {
+) implements Statement, ASTNode {
 }

@@ -24,6 +24,6 @@ public class BlockParser implements IParser<Block> {
 
         context.eat(TokenType.DOT);
 
-        return new Block(Collections.unmodifiableList(instructions));
+        return new Block(context.info().line(), context.info().column(), Collections.unmodifiableList(instructions));
     }
 }

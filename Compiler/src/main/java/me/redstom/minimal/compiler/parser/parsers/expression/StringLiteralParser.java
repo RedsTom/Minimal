@@ -11,6 +11,6 @@ import me.redstom.minimal.compiler.parser.parsers.IParser;
 public class StringLiteralParser implements IParser<StringLiteral> {
     @Override
     public StringLiteral parse(ParsingContext context) throws LanguageException {
-        return new StringLiteral(context.eat(TokenType.STRING).value());
+        return new StringLiteral(context.info().line(), context.info().column(), context.eat(TokenType.STRING).value());
     }
 }

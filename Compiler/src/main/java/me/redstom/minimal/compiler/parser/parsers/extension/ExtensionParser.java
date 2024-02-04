@@ -31,6 +31,6 @@ public class ExtensionParser implements IParser<Extension> {
 
         context.eat(TokenType.DOT);
 
-        return new Extension(type, Collections.unmodifiableList(functions));
+        return new Extension(context.info().line(), context.info().column(), type, Collections.unmodifiableList(functions));
     }
 }

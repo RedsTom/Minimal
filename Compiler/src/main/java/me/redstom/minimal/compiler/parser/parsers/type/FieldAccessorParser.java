@@ -16,11 +16,11 @@ public class FieldAccessorParser implements IParser<FieldAccessor> {
     public FieldAccessor parse(ParsingContext context) throws LanguageException {
         String name = context.eat(TokenType.IDENTIFIER).value();
 
-        FieldAccessor accessor = new FieldAccessor(name, Optional.empty());
+        FieldAccessor accessor = new FieldAccessor(context.info().line(), context.info().column(), name, Optional.empty());
         if (context.lookahead(TokenType.COLON)) {
             context.eat(TokenType.COLON);
             FieldAccessor parsed = context.parse(FieldAccessor.class);
-            return new FieldAccessor(accessor.name(), Optional.of(parsed));
+            return new FieldAccessor(context.info().line(), context.info().column(), accessor.name(), Optional.of(parsed));
         }
 
         return accessor;

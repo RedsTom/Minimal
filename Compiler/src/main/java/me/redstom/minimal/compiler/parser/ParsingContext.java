@@ -14,10 +14,17 @@ public class ParsingContext {
 
     private final Queue<Token> upcomingTokens;
     private final ParsingRegistry parsingRegistry;
+    private final ParsingContextInfo info;
 
     public ParsingContext(Queue<Token> upcomingTokens, ParsingRegistry parsingRegistry) {
         this.upcomingTokens = upcomingTokens;
         this.parsingRegistry = parsingRegistry;
+
+        if (upcomingTokens.peek() != null) {
+            this.info = new ParsingContextInfo(upcomingTokens.peek().line(), upcomingTokens.peek().column());
+        } else {
+            this.info = new ParsingContextInfo(-1, -1);
+        }
     }
 
     public Queue<Token> upcomingTokens() {
@@ -28,9 +35,14 @@ public class ParsingContext {
         return parsingRegistry;
     }
 
+    public ParsingContextInfo info() {
+        return info;
+    }
+
     public ParsingContext copy() {
         return new ParsingContext(upcomingTokens, parsingRegistry);
     }
+
     public ParsingContext copyClone() {
         return new ParsingContext(new ArrayDeque<>(upcomingTokens), parsingRegistry);
     }
@@ -84,5 +96,11 @@ public class ParsingContext {
         }
 
         return upcoming.type() == tokenValue.type() && upcoming.value().equals(tokenValue.value());
+    }
+
+    public record ParsingContextInfo(
+            long line,
+            long column
+    ) {
     }
 }

@@ -14,6 +14,6 @@ public class BooleanLiteralParser implements IParser<BooleanLiteral> {
     public BooleanLiteral parse(ParsingContext context) throws LanguageException {
         String value = context.eat(TokenType.BOOLEAN).value();
 
-        return new BooleanLiteral(Boolean.parseBoolean(value));
+        return new BooleanLiteral(context.info().line(), context.info().column(), Boolean.parseBoolean(value));
     }
 }

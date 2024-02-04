@@ -14,6 +14,7 @@ import me.redstom.minimal.compiler.parser.nodes.type.Type;
 import me.redstom.minimal.compiler.parser.parsers.IParser;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Optional;
 
 @Parses(Function.class)
@@ -47,12 +48,12 @@ public class FunctionParser implements IParser<Function> {
         }
 
         if (isInternal) {
-            return new Function(name, generics, parameters, Optional.ofNullable(returnType), null, true);
+            return new Function(context.info().line(), context.info().column(), name, Collections.unmodifiableList(generics), parameters, Optional.ofNullable(returnType), null, true);
         }
 
         context.eat(Keyword.IS);
         var body = context.parse(Block.class);
 
-        return new Function(name, generics, parameters, Optional.ofNullable(returnType), body, false);
+        return new Function(context.info().line(), context.info().column(), name, Collections.unmodifiableList(generics), parameters, Optional.ofNullable(returnType), body, false);
     }
 }

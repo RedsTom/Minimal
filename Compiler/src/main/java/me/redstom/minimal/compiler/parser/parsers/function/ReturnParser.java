@@ -15,6 +15,6 @@ public class ReturnParser implements IParser<Return> {
         context.eat(Keyword.RT);
         Expression value = context.parse(Expression.class);
 
-        return new Return(value);
+        return new Return(context.info().line(), context.info().column(), value);
     }
 }

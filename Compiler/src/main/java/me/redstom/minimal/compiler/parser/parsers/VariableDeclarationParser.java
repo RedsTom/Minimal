@@ -30,6 +30,6 @@ public class VariableDeclarationParser implements IParser<VariableDeclaration> {
             value = context.parse(Expression.class);
         }
 
-        return new VariableDeclaration(name, Optional.ofNullable(type), Optional.ofNullable(value));
+        return new VariableDeclaration(context.info().line(), context.info().column(), name, Optional.ofNullable(type), Optional.ofNullable(value));
     }
 }

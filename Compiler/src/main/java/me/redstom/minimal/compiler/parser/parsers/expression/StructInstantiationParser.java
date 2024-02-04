@@ -10,6 +10,7 @@ import me.redstom.minimal.compiler.parser.nodes.expression.StructInstantiation;
 import me.redstom.minimal.compiler.parser.nodes.type.ApplicativeType;
 import me.redstom.minimal.compiler.parser.parsers.IParser;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,6 +37,6 @@ public class StructInstantiationParser implements IParser<StructInstantiation> {
         }
         context.eat(TokenType.RIGHT_CURLY_BRACE);
 
-        return new StructInstantiation(type, fields);
+        return new StructInstantiation(context.info().line(), context.info().column(), type, Collections.unmodifiableMap(fields));
     }
 }

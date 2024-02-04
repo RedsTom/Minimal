@@ -27,6 +27,6 @@ public class ListParser implements IParser<List> {
         }
         context.eat(TokenType.RIGHT_BRACKET);
 
-        return new List(Collections.unmodifiableList(expressions));
+        return new List(context.info().line(), context.info().column(), Collections.unmodifiableList(expressions));
     }
 }

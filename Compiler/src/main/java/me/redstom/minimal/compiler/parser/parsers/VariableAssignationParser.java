@@ -16,6 +16,6 @@ public class VariableAssignationParser implements IParser<VariableAssignation> {
         context.eat(TokenType.EQUAL);
         Expression expression = context.parse(Expression.class);
 
-        return new VariableAssignation(accessor, expression);
+        return new VariableAssignation(context.info().line(), context.info().column(), accessor, expression);
     }
 }

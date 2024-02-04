@@ -34,6 +34,6 @@ public class ApplicativeTypeParser implements IParser<ApplicativeType> {
             context.eat(TokenType.RIGHT_RAFTER);
         }
 
-        return new ApplicativeType(type, Collections.unmodifiableList(generics));
+        return new ApplicativeType(context.info().line(), context.info().column(), type, Collections.unmodifiableList(generics));
     }
 }

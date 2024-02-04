@@ -73,7 +73,7 @@ public class FunctionCallParser implements IParser<FunctionCall> {
 
         context.eat(TokenType.RIGHT_PAREN);
 
-        return new FunctionCall(target, name, Collections.unmodifiableList(arguments), Collections.unmodifiableList(joiners));
+        return new FunctionCall(context.info().line(), context.info().column(), target, name, Collections.unmodifiableList(arguments), Collections.unmodifiableList(joiners));
     }
 
     private FunctionCall tryParseNormalCall(ParsingContext context) throws LanguageException {
@@ -100,6 +100,6 @@ public class FunctionCallParser implements IParser<FunctionCall> {
 
         context.eat(TokenType.RIGHT_PAREN);
 
-        return new FunctionCall(null, name, Collections.unmodifiableList(arguments), Collections.unmodifiableList(joiners));
+        return new FunctionCall(context.info().line(), context.info().column(), null, name, Collections.unmodifiableList(arguments), Collections.unmodifiableList(joiners));
     }
 }
