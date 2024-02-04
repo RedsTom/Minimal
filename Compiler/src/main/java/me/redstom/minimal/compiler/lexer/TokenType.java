@@ -5,6 +5,7 @@ import java.util.function.Function;
 import java.util.regex.Pattern;
 
 public enum TokenType {
+    COMMENT(Pattern.compile("^#.*$", Pattern.MULTILINE), true),
     STRING(Pattern.compile("^\"[^\"]*\""), t -> STR."\{t.value()}"),
     NUMBER(Pattern.compile("^[+-]?\\d+(\\.\\d+)?"), Token::value),
     BOOLEAN(Pattern.compile("^(true|false)"), Token::value),
@@ -25,7 +26,7 @@ public enum TokenType {
     NEW_LINE(Pattern.compile("^\\n"), _ -> "\n", true),
     SPACE(Pattern.compile("^\\s+"), true),
     KEYWORD(Pattern.compile(Keyword.generateRegex()), t -> Keyword.get(t.value()).stringify()),
-    IDENTIFIER(Pattern.compile(".+?(?=<|>|:|\\s|\\.|\\(|\\)|,|[|]|\\{|})"), t -> STR."identifier: \{t.value()}"),
+    IDENTIFIER(Pattern.compile("^.+?(?=<|>|:|\\s|\\.|\\(|\\)|,|\\[|\\]|\\{|})"), t -> STR."<identifier: \{t.value()}>"),
     ;
 
     private Pattern pattern;

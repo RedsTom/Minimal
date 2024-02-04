@@ -18,7 +18,7 @@ public enum Keyword implements TokenValue {
     }
 
     public String stringify() {
-        return STR."keyword: \{super.name().toLowerCase()}";
+        return STR."<keyword: \{super.name().toLowerCase()}>";
     }
 
     public static String generateRegex() {

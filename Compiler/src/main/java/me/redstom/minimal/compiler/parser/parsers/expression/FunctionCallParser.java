@@ -16,6 +16,7 @@ import me.redstom.minimal.compiler.parser.nodes.type.DeclarativeType;
 import me.redstom.minimal.compiler.parser.parsers.IParser;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -72,7 +73,7 @@ public class FunctionCallParser implements IParser<FunctionCall> {
 
         context.eat(TokenType.RIGHT_PAREN);
 
-        return new FunctionCall(target, name, arguments, joiners);
+        return new FunctionCall(target, name, Collections.unmodifiableList(arguments), Collections.unmodifiableList(joiners));
     }
 
     private FunctionCall tryParseNormalCall(ParsingContext context) throws LanguageException {
@@ -99,6 +100,6 @@ public class FunctionCallParser implements IParser<FunctionCall> {
 
         context.eat(TokenType.RIGHT_PAREN);
 
-        return new FunctionCall(null, name, arguments, joiners);
+        return new FunctionCall(null, name, Collections.unmodifiableList(arguments), Collections.unmodifiableList(joiners));
     }
 }

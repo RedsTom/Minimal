@@ -1,0 +1,38 @@
+ext on String is
+    internal func + takes other: _ returns String
+    internal func replace_first takes old: String "with" new: String returns String
+
+    func % takes args: Array<_> returns String is
+        let intermediate = self
+        (loop args as @ arg: _ ->
+            intermediate = (intermediate replace_first "%s" with arg)
+        .)
+        rt intermediate
+    .
+
+    func % takes arg: String returns String is
+        rt (self % [arg])
+    .
+.
+
+ext on Number is
+    internal func + takes other: Number returns Number
+    internal func += takes new: Number returns Number
+.
+
+internal func print takes content: String returns _
+internal func stringify takes arg: _ returns String
+
+func println takes content: String returns _ is
+    (print (content + "\n"))
+.
+
+internal func loop<T> takes array: Array<T> "as" body: Function<T, _> returns _
+func map<T, U> takes array: Array<T> "as" body: Function<T, U> returns Array<U> is
+    let results: Array<U> = []
+    (loop array as @ item: T ->
+        (results += (body call item))
+    .)
+
+    rt results
+.

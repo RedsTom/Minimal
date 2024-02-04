@@ -1,0 +1,51 @@
+# Code de démonstration de l'utilisation du langage Minimal
+
+struct Entity is
+.
+
+struct Person<T> impls Entity<A, B<C>> is
+    name: String
+    age: Number
+    children: Array<Person>
+.
+
+ext on Person is
+    func + takes other: Person returns Person is
+        (children += other)
+        rt other
+    .
+    func ages takes new_age: Number returns Nothing is
+        (self:age += age)
+    .
+    func give_birth takes name: String returns Person is
+        rt (+ Person {
+            name = name
+            age = 0
+            children = []
+        })
+    .
+.
+
+func main is
+    let me = Person {
+        name = "Tom"
+        age = 0.5
+        children = []
+    }
+
+    let child = (me give_birth "Thomas")
+
+    (print (me + " " + child))
+    (Person {
+        name = "Tom"
+    } ages 3)
+.
+
+ext on String is
+    internal func + takes other: String "+" other2: String
+    func + takes other: String "+" other2: String is.
+.
+
+ext Truc is
+    
+.
